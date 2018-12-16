@@ -8,8 +8,7 @@ function portfolio(state, action) {
     case ADD_PORTFOLIO: 
       return {
         id: action.id,
-        name: action.name,
-        stocks: []
+        name: action.name
       }
     default: 
       return state
@@ -18,7 +17,7 @@ function portfolio(state, action) {
 
 function allIds(state = [], action) {
   if(state.length == 10) {
-    // maybe dispatch an error action 
+    // dispatch an error action 
     return state
   }
   switch(action.type) {

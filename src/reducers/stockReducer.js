@@ -1,4 +1,8 @@
-import { ADD_STOCK } from '../actions/stockActions'
+import { 
+  ADD_STOCK, 
+  TOGGLE_SELECT, 
+  DELETE_SELECTED 
+} from '../actions/stockActions'
 import { combineReducers } from 'redux'
 
 function stock(state, action) {
@@ -8,8 +12,11 @@ function stock(state, action) {
           id: action.id,
           portfolio: action.portfolio,
           ticker: action.ticker,
+          selected: false, 
           price: 199
         }
+    case TOGGLE_SELECT: 
+      return { ...state, selected: action.select }
     default: 
       return state
   }
@@ -20,6 +27,8 @@ function allStocks(state = [], action) {
   switch(action.type) {
     case ADD_STOCK:   
       return [...state, action.id]
+    case DELETE_SELECTED: 
+      return state.filter(el => el !== action.id)
     default: 
       return state
   }
@@ -32,13 +41,18 @@ function byId(state = {}, action) {
         ...state, 
         [action.id]: stock(state[action.id], action)
       }
+    case TOGGLE_SELECT: 
+      return {
+        ...state,
+        [action.id]: stock(state[action.id], action)
+      }
     default: 
       return state
   }
 }
 
 export function getStocksInPortfolio(state, id){
-  const portfolioStocks = state.allStocks.filter(el => el.portfolio !== id)
+  const portfolioStocks = state.allStocks.filter(el => state.byId[el].portfolio === id)
   const stockObjects = portfolioStocks.map(el => state.byId[el])
   return stockObjects
 }
