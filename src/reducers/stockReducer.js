@@ -1,9 +1,10 @@
 import { 
-  ADD_STOCK, 
+ADD_STOCK, 
   TOGGLE_SELECT, 
-  DELETE_SELECTED 
+  DELETE_SELECTED
 } from '../actions/stockActions'
 import { combineReducers } from 'redux'
+import _ from 'lodash'
 
 function stock(state, action) {
   switch(action.type) {
@@ -13,7 +14,8 @@ function stock(state, action) {
           portfolio: action.portfolio,
           ticker: action.ticker,
           selected: false, 
-          price: 199
+          price: action.price,
+          amount: action.amount
         }
     case TOGGLE_SELECT: 
       return { ...state, selected: action.select }
@@ -46,6 +48,8 @@ function byId(state = {}, action) {
         ...state,
         [action.id]: stock(state[action.id], action)
       }
+    case DELETE_SELECTED:
+      return _.omit(state, [action.id])
     default: 
       return state
   }

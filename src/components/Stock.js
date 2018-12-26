@@ -10,9 +10,10 @@ class Stock extends React.Component {
     return (
       <div className="stock">
         {this.props.element.ticker}
-         --- 
-        {this.props.element.price}
+        --- 
+        {parseFloat(this.props.element.price).toFixed(2)}
         ---
+        {this.props.element.amount}
         <input defaultChecked={this.props.element.selected} type="checkbox" onChange={this.props.handleClick}></input>
       </div>
     )

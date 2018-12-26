@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Account from '../components/Account'
-import { addPortfolio } from '../actions/accountActions'
+import { addPortfolio, deletePortfolio } from '../actions/accountActions'
 import { getAllPortfolios } from '../reducers/accountReducer'
 
 // Determines how state gets passed to props 

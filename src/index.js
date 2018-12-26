@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'         // This lets us manage actions easier 
 
 // The actual application 
 import AccountContainer from './containers/AccountContainer'
@@ -13,7 +14,8 @@ import { loadState, saveState } from './localStorage'
 const persistedState = loadState()
 const store = createStore(
   portfolioApp,
-  persistedState
+  persistedState,
+  applyMiddleware(thunk)
 )
 
 store.subscribe(() => {

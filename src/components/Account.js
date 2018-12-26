@@ -1,4 +1,4 @@
-  import React from 'react'
+import React from 'react'
 import PortfolioContainer from '../containers/PortfolioContainer'
 
 // Represents the entire account - has several portfolios 
