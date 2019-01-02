@@ -57,7 +57,7 @@ class Portfolio extends React.Component {
         <div className="portfolio-header">
           <span>{this.props.element.name}</span>
           <button 
-            className="button"
+            className="spms-button"
             onClick={() => {
               this.props.onRemove(this.props.element.id)
               this.props.portfolioStocks.map(el => {
@@ -66,38 +66,52 @@ class Portfolio extends React.Component {
             }}>Delete portfolio</button>
         </div>
         <div className="portfolio-content">
-          {this.props.portfolioStocks.map(el => (
-            <Stock 
-            key={el.id} 
-            element={el} 
-            handleClick={() => this.props.onSelect(el.id, !el.selected)}/>
+          <table className="portfolio-table">
+            <thead>
+              <tr>
+                <th><span>Symbol</span></th>
+                <th><span>Price</span></th>
+                <th><span>Amount</span></th>
+                <th><span>Selected</span></th>
+              </tr>
+            </thead>
+            <tbody>
+            {this.props.portfolioStocks.map(el => (
+              <Stock 
+                key={el.id} 
+                element={el} 
+                handleClick={() => this.props.onSelect(el.id, !el.selected)}/>
             ))}
+            </tbody>
+          </table>
         </div>
-        <div className="container">
-          <p>Total value of {this.props.element.name} Portfolio: {this.totalValue()} {this.state.currency}</p>  
-        </div>
-        <div className="portfolio-footer">
+        <div className="portfolio-footer container">
+          <div className="portfolio-info">
+            <p>Total value of {this.props.element.name} Portfolio: {this.totalValue()} {this.state.currency}</p>  
+          </div>
           {/* TODO: Add a modal box to query ticker and amount */}
-          <button 
-            onClick={() => {
-              this.toggleAdd()
-              //this.props.onAddStock(this.state.value, this.props.portfolio)
-            }} 
-            className="button">Add stock</button>
-          <button 
-            className="button"
-            onClick={() => {
-              this.toggleGraph()
-            }}>Perf Graph</button>
-          <button 
-            onClick={() => {
-              this.props.portfolioStocks.map(el => {
-                if(el.selected) {
-                  this.props.onDelete(el.id)
-                }
-              })
-            }} 
-            className="button">Remove selected</button>
+          <div className="footer-buttons">
+            <button 
+              onClick={() => {
+                this.toggleAdd()
+                //this.props.onAddStock(this.state.value, this.props.portfolio)
+              }} 
+              className="spms-button">Add stock</button>
+            <button 
+              className="spms-button"
+              onClick={() => {
+                this.toggleGraph()
+              }}>Perf Graph</button>
+            <button 
+              onClick={() => {
+                this.props.portfolioStocks.map(el => {
+                  if(el.selected) {
+                    this.props.onDelete(el.id)
+                  }
+                })
+              }} 
+              className="spms-button">Remove selected</button>
+          </div>
         </div>
       </div>
     </div>

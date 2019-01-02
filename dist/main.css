@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
+/*
+general color theme
+darkblue: #1d3557
+queen(lighter)blue: #457b9d
+lightblue: #a8dadc
+light: #f1faee
+warning: #e63946
+*/
+
 /* clear default stylings */
 body, 
 html {
   margin: 0;
   padding: 0; 
   font-family: 'Raleway', sans-serif;
+  background-color: rgb(28, 28, 28);
 }
 
 /* includes content, padding and borders to the width and height properties */
@@ -13,9 +23,15 @@ html {
   box-sizing: border-box; 
 }
 
+.top-form {
+
+}
+
 .account-header {
   display: flex; 
   justify-content: space-between;
+  background-color: rgb(42,42,42);
+  color: #fff; 
   padding-left: 1.1rem;
   padding-right: 3rem;
 }
@@ -23,11 +39,11 @@ html {
 .portfolio {
   display: flex; 
   flex-direction: column;
-  border: 1px solid lightgray;
   width: 45vw;
   height: 50vh;
   float: left; 
   margin: .2rem;
+  border-radius: 5px; 
 }
 
 .portfolio-header {
@@ -35,18 +51,45 @@ html {
   flex: 1; 
   justify-content: space-around;
   align-items: center;
+  color: #fff; 
+  background-color: rgb(42,42,42); 
+  border-bottom: 1px solid rgb(28, 28, 28); 
 }
 
 .portfolio-content {
-  display: flex; 
-  flex-direction: column; 
+  padding: .5rem; 
+  overflow: scroll; 
   flex: 5; 
-  border: 1px solid lightgray; 
+  color: #fff; 
+  background-color: rgb(42,42,42);
+  border-bottom: 1px solid rgb(28, 28, 28);
+}
+
+.portfolio-table {
+  width: 100%; 
+  text-align: left; 
+}
+
+.stock {
+  text-align: left; 
+  border-bottom: 1px solid rgb(28, 28, 28);  
 }
 
 .portfolio-footer {
   display: flex; 
   flex: 1;
+  flex-direction: column; 
+  background-color: rgb(42,42,42);
+}
+
+.portfolio-info {
+  display: flex;
+  color: #fff; 
+  justify-content: center; 
+}
+
+.footer-buttons {
+  display: flex; 
   justify-content: space-between;
 }
 
@@ -64,6 +107,24 @@ html {
 .button {
   background: none; 
 }
+
+.spms-button {
+  background: none; 
+  border: none; 
+  border-bottom: 3px solid rgb(42,42,42); 
+  text-decoration: none; 
+  text-transform: capitalize; 
+  padding: 0;
+  margin: .3rem;  
+  color: whitesmoke; 
+  transition: border-bottom ease .2s ;
+}
+
+.spms-button:hover {
+  cursor: pointer;
+  border-bottom: 3px solid whitesmoke; 
+}
+
 .centered {
   justify-content: center; 
 }
@@ -127,5 +188,21 @@ html {
   .portfolio {
     width: 100%; 
     height: 60vh; 
+  }
+  .modal {
+    width: 100%; 
+    height: 100%; 
+    border-radius: 0; 
+  }
+  .small {
+    height: 50vh;
+  }
+  .backdrop{
+    padding: 0; 
+  }
+
+  /* needed for chart (the width will overflow) */
+  .modal-content{
+    overflow: scroll;
   }
 }

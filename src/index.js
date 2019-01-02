@@ -30,11 +30,16 @@ SPMS - Stock Portfolio Management System
 
 Create and track portfolios.  
 Made with React + Redux 
+
+The stocks are kept "separate" so if you 
+buy a msft stock at two different occasions 
+you will see two different msft stocks with 
+different prices. This is intentional. 
 */
 class Index extends React.Component {
   render() {
     return(
-        <div className="container">
+        <div>
           <AccountContainer />
         </div>
     )

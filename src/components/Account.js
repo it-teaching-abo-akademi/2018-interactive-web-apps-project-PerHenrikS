@@ -26,9 +26,14 @@ class Account extends React.Component {
       <div>
         <div className="account-header">
           <h4>SPMS</h4>
-          <form className="container">
-            <input value={this.state.value} onChange={this.handleInput}></input>
-            <button onClick={(ev) => {
+          <form className="container top-form">
+            <input 
+              style={{width: '50%'}}
+              value={this.state.value} 
+              onChange={this.handleInput}></input>
+            <button 
+              className="spms-button"
+              onClick={(ev) => {
               ev.preventDefault()                                       // To not reload page 
               this.props.onAddPortfolio(this.state.value) 
               this.clearInput()

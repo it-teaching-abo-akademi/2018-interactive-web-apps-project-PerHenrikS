@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onRemove(id) {
       dispatch(deletePortfolio(id))
-      dispatch(deleteFromPortfolio(id))
+      //dispatch(deleteFromPortfolio(id))
     },
     onSelect(stockId, select) {
       dispatch(toggleSelect(stockId, select))
