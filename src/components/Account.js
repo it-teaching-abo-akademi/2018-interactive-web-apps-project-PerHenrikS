@@ -8,9 +8,29 @@ class Account extends React.Component {
 
     this.handleInput = this.handleInput.bind(this)
     this.clearInput = this.clearInput.bind(this)
+    this.changeTheme = this.changeTheme.bind(this)
     this.state = {
-      value: ""
+      value: "",
+      mode: ''
     }
+  }
+
+  // Small hack to switch between light and dark modes
+  componentDidMount(){
+    document.body.className = this.state.mode
+  }
+  componentWillUnmount(){
+    document.body.className = null
+  }
+  componentDidUpdate(){
+    document.body.className = this.state.mode
+  }
+
+  changeTheme(){
+    const newMode = (this.state.mode === '') ? 'light' : ''
+    this.setState({
+      mode: newMode
+    })
   }
 
   handleInput(event){
@@ -25,7 +45,15 @@ class Account extends React.Component {
     return (
       <div>
         <div className="account-header">
-          <h4>SPMS</h4>
+          <div style={{display: 'flex'}}>
+            <h4>SPMS</h4>
+            <button 
+              style={{height: '50%'}} 
+              onClick={this.changeTheme} 
+              className="spms-button">
+              {(this.state.mode == '') ? 'Day mode' : 'Night mode'}
+              </button>
+          </div>
           <form className="container top-form">
             <input 
               style={{width: '50%'}}

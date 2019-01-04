@@ -2,10 +2,7 @@ import React from 'react'
 import { Line } from 'react-chartjs-2'
 import fetch from 'node-fetch'
 import {key} from '../actions/stockActions'
-import DayPickerInput from 'react-day-picker/DayPickerInput'
 import _ from 'lodash'
-
-import 'react-day-picker/lib/style.css'
 
 const options = {
   animation: {
@@ -51,9 +48,6 @@ class Graph extends React.Component {
     this.initializeState = this.initializeState.bind(this)
     this.getHistoricalData = this.getHistoricalData.bind(this)
     this.handleClose = this.handleClose.bind(this)
-    this.handleStartChange = this.handleStartChange.bind(this)
-    this.handleEndChange = this.handleEndChange.bind(this)
-    this.updateChart = this.updateChart.bind(this)
     this.state = initialState
   }
 
@@ -90,7 +84,7 @@ class Graph extends React.Component {
   getHistoricalData() {
     this.state.symbols.map((el, i) => {
       // Check if dataset already exists, no point in fetching several times 
-      if(!this.state.loaded.includes(el)){
+      if(!this.state.loaded.includes(el) && false){
         console.log("Makes api call")
         fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${el}&outputsize=compact&apikey=${key}`)
         .then(res => res.json())
@@ -135,21 +129,7 @@ class Graph extends React.Component {
     //this.setState(initialState)
     this.props.onClose()
   }
-  
-  handleStartChange(day){
-    console.log("Something ?")
-    console.log(day)
-  }
 
-  handleEndChange(day){
-    console.log(day)
-  }
-
-  updateChart(){
-    console.log("slice!")
-    // Keep data in state separately, and just pass slices
-    // to the data to be passed to the Line component
-  }
 
   render() {
     if(!this.props.show){
@@ -165,9 +145,6 @@ class Graph extends React.Component {
           </div>
           <div className="container modal-footer">
               {/*<button className="button" onClick={this.update}>Show Graph</button>*/}
-              {/*<span>Start<DayPickerInput onDayChange={this.handleStartChange} /></span>
-              <span>End<DayPickerInput onDayChange={this.handleEndChange} /></span>
-    <button onClick={this.updateChart} className="button">Update</button>*/}
           </div>
           <div className="modal-content">
             <div className="modal-graph">

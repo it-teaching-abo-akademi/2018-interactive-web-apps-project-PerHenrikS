@@ -17,12 +17,12 @@ function portfolio(state, action) {
 }
 
 function allIds(state = [], action) {
-  if(state.length == 10) {
-    // dispatch an error action 
-    return state
-  }
   switch(action.type) {
     case ADD_PORTFOLIO: 
+      // This should still be pure
+      if(state.length == 10) {
+        return state
+      }
       return [...state, action.id]
     case DELETE_PORTFOLIO: 
       return state.filter(el => el !== action.id)

@@ -4,6 +4,10 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'         // This lets us manage actions easier 
 
+// To change the theme (default dark)
+import './styles/main.css'
+import './styles/light.css'
+
 // The actual application 
 import AccountContainer from './containers/AccountContainer'
 import portfolioApp from './reducers/reducers';

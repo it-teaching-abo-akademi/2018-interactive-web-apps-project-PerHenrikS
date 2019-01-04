@@ -2,6 +2,8 @@ import React from 'react'
 import Stock from './Stock'
 import AddStock from './AddStock'
 import Graph from './Graph'
+import fetch from 'node-fetch'
+import {key} from '../actions/stockActions'
 
 // Represents a portfolio view - there can be many of these
 class Portfolio extends React.Component {
@@ -11,10 +13,12 @@ class Portfolio extends React.Component {
     this.totalValue = this.totalValue.bind(this)
     this.toggleGraph = this.toggleGraph.bind(this)
     this.toggleAdd = this.toggleAdd.bind(this)
+    this.setExchangeRate = this.setExchangeRate.bind(this)
     this.state = {
       graphOpen: false,
       addStock: false, 
-      currency: '$'
+      currency: 'usd',
+      rate: 1
     }
   }
 
@@ -36,11 +40,38 @@ class Portfolio extends React.Component {
     }
     const val = this.props.portfolioStocks.map(el => { return parseFloat(el.price) * el.amount })
     const total = val.reduce((total, current) => total + current)
-    return parseFloat(total).toFixed(2)
+    return parseFloat(parseFloat(total) * this.state.rate).toFixed(2)
+  }
+
+  setExchangeRate(){
+    /* 
+    The portfolio value is always calculated in usd, so we only 
+    ever need to fetch the exchange rate between usd -> eur 
+
+    the exchange rates could ofcourse be saved but they can 
+    fluctuate during your browse time (I think) so it's 
+    better to fetch them per change. 
+     */
+    if(this.state.currency == 'usd'){
+      fetch(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=usd&to_currency=eur&apikey=${key}`)
+      .then(res => res.json())
+      .then(res => {
+        const exchangeRate = res['Realtime Currency Exchange Rate']['5. Exchange Rate']
+
+        this.setState({
+          currency: 'eur',
+          rate: parseFloat(exchangeRate).toFixed(2)
+        })
+      }) 
+    }else{
+      this.setState({
+        currency: 'usd',
+        rate: 1
+      })
+    }
   }
 
   render(){
-    this.totalValue()
     return (
       <div>
       <AddStock 
@@ -87,7 +118,12 @@ class Portfolio extends React.Component {
         </div>
         <div className="portfolio-footer container">
           <div className="portfolio-info">
-            <p>Total value of {this.props.element.name} Portfolio: {this.totalValue()} {this.state.currency}</p>  
+            {/* Get current exchange rate and convert */}
+            <p>
+              Total value of {this.props.element.name} :
+              {this.totalValue()}
+              {(this.state.currency == 'usd') ? '$' : '€'}
+              </p>  
           </div>
           {/* TODO: Add a modal box to query ticker and amount */}
           <div className="footer-buttons">
@@ -97,6 +133,11 @@ class Portfolio extends React.Component {
                 //this.props.onAddStock(this.state.value, this.props.portfolio)
               }} 
               className="spms-button">Add stock</button>
+            <button 
+              className="spms-button"
+              onClick={() => {
+                this.setExchangeRate()
+              }}>Change currency</button>
             <button 
               className="spms-button"
               onClick={() => {

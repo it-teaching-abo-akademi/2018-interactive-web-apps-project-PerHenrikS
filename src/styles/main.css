@@ -15,16 +15,12 @@ html {
   margin: 0;
   padding: 0; 
   font-family: 'Raleway', sans-serif;
-  background-color: rgb(28, 28, 28);
+  background-color: rgb(28, 28, 28); 
 }
 
 /* includes content, padding and borders to the width and height properties */
 * {
   box-sizing: border-box; 
-}
-
-.top-form {
-
 }
 
 .account-header {
