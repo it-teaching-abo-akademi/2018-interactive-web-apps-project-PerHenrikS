@@ -4,6 +4,7 @@ export const key = '7H4Y3N5POD5QYIXW'
 
 // Portfolio related actions
 export const ADD_STOCK = 'ADD_STOCK'
+export const ADD_TO_STOCK = 'ADD_TO_STOCK'
 export const TOGGLE_SELECT = 'TOGGLE_SELECT'
 export const DELETE_SELECTED = 'DELETE_SELECTED'
 
@@ -22,7 +23,12 @@ export function addStock(ticker, portfolio, amount) {
       })
       .catch(err => console.log(err))
   }
-} 
+}
+
+// Id of stock and amount to add 
+export function addToStock(id, amount){
+  return { type: ADD_TO_STOCK, id, amount }
+}
 
 //TODO: remove selected item
 export function deleteSelected(id) {

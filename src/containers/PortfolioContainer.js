@@ -3,8 +3,8 @@ import Portfolio from '../components/Portfolio'
 import { 
   addStock, 
   deleteSelected, 
-  toggleSelect, 
-  deleteFromPortfolio 
+  toggleSelect,
+  addToStock, 
 } from '../actions/stockActions';
 import { deletePortfolio } from '../actions/accountActions'
 import { getStocksInPortfolio } from '../reducers/stockReducer'
@@ -20,6 +20,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAddStock(ticker, id, amount) {
       dispatch(addStock(ticker, id, amount))
+    },
+    onAddToStock(id, amount) {
+      // The id of the stock and amount to add 
+      dispatch(addToStock(id, amount))
     },
     onDelete(stockId) {
       dispatch(deleteSelected(stockId))

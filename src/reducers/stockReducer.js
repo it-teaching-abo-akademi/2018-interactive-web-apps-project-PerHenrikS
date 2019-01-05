@@ -1,7 +1,8 @@
 import { 
 ADD_STOCK, 
   TOGGLE_SELECT, 
-  DELETE_SELECTED
+  DELETE_SELECTED,
+  ADD_TO_STOCK
 } from '../actions/stockActions'
 import { combineReducers } from 'redux'
 import _ from 'lodash'
@@ -17,6 +18,12 @@ function stock(state, action) {
           price: action.price,
           amount: action.amount
         }
+    case ADD_TO_STOCK: 
+      const newAmount = parseFloat(state.amount) + parseFloat(action.amount)
+      return {
+        ...state, 
+        amount: newAmount
+      }
     case TOGGLE_SELECT: 
       return { ...state, selected: action.select }
     default: 
@@ -39,6 +46,11 @@ function allStocks(state = [], action) {
 function byId(state = {}, action) {
   switch(action.type) {
     case ADD_STOCK: 
+      return {
+        ...state, 
+        [action.id]: stock(state[action.id], action)
+      }
+    case ADD_TO_STOCK: 
       return {
         ...state, 
         [action.id]: stock(state[action.id], action)

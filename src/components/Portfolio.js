@@ -14,6 +14,7 @@ class Portfolio extends React.Component {
     this.toggleGraph = this.toggleGraph.bind(this)
     this.toggleAdd = this.toggleAdd.bind(this)
     this.setExchangeRate = this.setExchangeRate.bind(this)
+    this.addStockHandler = this.addStockHandler.bind(this)
     this.state = {
       graphOpen: false,
       addStock: false, 
@@ -71,13 +72,23 @@ class Portfolio extends React.Component {
     }
   }
 
+  addStockHandler(ticker, portfolio, amount){
+    const exists = this.props.portfolioStocks.filter(el => el.ticker === ticker) 
+    if(exists.length > 0){
+      const stockId = exists[0].id
+      this.props.onAddToStock(stockId, amount)
+    }else{
+      this.props.onAddStock(ticker, portfolio, amount)
+    }
+  }
+
   render(){
     return (
       <div>
       <AddStock 
         show={this.state.addStock}
         onClose={this.toggleAdd}
-        handler={this.props.onAddStock}
+        handler={this.addStockHandler}
         portfolio={this.props.portfolio}
         />
       <Graph 
