@@ -82,10 +82,9 @@ class Graph extends React.Component {
   }
 
   getHistoricalData() {
-    this.state.symbols.map((el, i) => {
+    this.state.symbols.map((el, _) => {
       // Check if dataset already exists, no point in fetching several times 
-      if(!this.state.loaded.includes(el) && false){
-        console.log("Makes api call")
+      if(!this.state.loaded.includes(el)){
         fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${el}&outputsize=compact&apikey=${key}`)
         .then(res => res.json())
         .then(json => {
@@ -117,9 +116,9 @@ class Graph extends React.Component {
       }
     })
   }
+
   // Needed to update when new props received from parents 
   componentWillReceiveProps(newProps){
-    //this.initializeState(newProps)
     if(newProps.show){
       this.initializeState(newProps)
     }
@@ -141,7 +140,7 @@ class Graph extends React.Component {
         <div className="modal">
           <div className="modal-header">
             Graph
-            <button className="button" onClick={this.handleClose}>Close</button>
+            <button className="modal-button" onClick={this.handleClose}>Close</button>
           </div>
           <div className="container modal-footer">
               {/*<button className="button" onClick={this.update}>Show Graph</button>*/}

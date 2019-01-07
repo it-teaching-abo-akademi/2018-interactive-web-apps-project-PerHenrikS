@@ -39,7 +39,10 @@ class Portfolio extends React.Component {
     if(this.props.portfolioStocks.length === 0){
       return 0
     }
-    const val = this.props.portfolioStocks.map(el => { return parseFloat(el.price) * el.amount })
+    const val = this.props.portfolioStocks.map(el => { 
+      const currentPrice = parseFloat(this.props.prices.byId[el.ticker].price).toFixed(2)
+      return currentPrice * el.amount 
+    })
     const total = val.reduce((total, current) => total + current)
     return parseFloat(parseFloat(total) * this.state.rate).toFixed(2)
   }
@@ -78,7 +81,11 @@ class Portfolio extends React.Component {
       const stockId = exists[0].id
       this.props.onAddToStock(stockId, amount)
     }else{
-      this.props.onAddStock(ticker, portfolio, amount)
+      if(this.props.portfolioStocks.length < 50){
+        this.props.onAddStock(ticker, portfolio, amount)
+      }else{
+        alert("Only 50 symbols allowed per portfolio")
+      }
     }
   }
 
@@ -103,7 +110,7 @@ class Portfolio extends React.Component {
             onClick={() => {
               this.props.onRemove(this.props.element.id)
               this.props.portfolioStocks.map(el => {
-                this.props.onDelete(el.id)
+                this.props.onDelete(el.id, el.ticker)
               })
             }}>Delete portfolio</button>
         </div>
@@ -122,6 +129,7 @@ class Portfolio extends React.Component {
               <Stock 
                 key={el.id} 
                 element={el} 
+                price={this.props.prices.byId[el.ticker]}
                 handleClick={() => this.props.onSelect(el.id, !el.selected)}/>
             ))}
             </tbody>
@@ -158,7 +166,7 @@ class Portfolio extends React.Component {
               onClick={() => {
                 this.props.portfolioStocks.map(el => {
                   if(el.selected) {
-                    this.props.onDelete(el.id)
+                    this.props.onDelete(el.id, el.ticker)
                   }
                 })
               }} 

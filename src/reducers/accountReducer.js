@@ -46,10 +46,6 @@ function byId(state = {}, action){
   }
 }
 
-export function getAllPortfolios(state) {
-  return state.allIds.map(id => state.byId[id])
-}
-
 const portfolios = combineReducers({
   byId,
   allIds

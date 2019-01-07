@@ -26,9 +26,6 @@ store.subscribe(() => {
   saveState(store.getState())
 })
 
-console.log("### Initial state ###")
-console.log(store.getState())
-console.log("#####################")
 /*
 SPMS - Stock Portfolio Management System 
 

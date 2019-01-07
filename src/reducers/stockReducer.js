@@ -1,8 +1,9 @@
 import { 
-ADD_STOCK, 
+  ADD_STOCK, 
   TOGGLE_SELECT, 
   DELETE_SELECTED,
-  ADD_TO_STOCK
+  ADD_TO_STOCK,
+  UPDATE_PRICE
 } from '../actions/stockActions'
 import { combineReducers } from 'redux'
 import _ from 'lodash'

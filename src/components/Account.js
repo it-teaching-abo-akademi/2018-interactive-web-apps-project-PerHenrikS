@@ -1,5 +1,7 @@
 import React from 'react'
 import PortfolioContainer from '../containers/PortfolioContainer'
+import key from '../actions/stockActions'
+import _ from 'lodash'
 
 // Represents the entire account - has several portfolios 
 class Account extends React.Component {
@@ -18,6 +20,9 @@ class Account extends React.Component {
   // Small hack to switch between light and dark modes
   componentDidMount(){
     document.body.className = this.state.mode
+    this.props.prices.allIds.map(symbol => {
+      this.props.updateInitial(symbol)
+    })
   }
   componentWillUnmount(){
     document.body.className = null

@@ -44,16 +44,16 @@ class AddStock extends React.Component {
         <div className="modal small">
           <div className="modal-header centered">
             Add Stock
-            <button className="button" onClick={this.handleClose}>Close</button>
+            <button className="modal-button" onClick={this.handleClose}>Close</button>
           </div>
           <div className="modal-content centered">
-            <form className="container">
+            <form className="container stock-form">
               <label>Symbol</label>
               <input value={this.state.value} onChange={this.handleInput}></input>
 
               <label>Amount</label>
               <input value={this.state.amount} onChange={this.handleAmount}></input>
-              <button className="button" onClick={(e) => 
+              <button className="modal-button" onClick={(e) => 
                 {
                   e.preventDefault()
                   this.props.handler(this.state.value, this.props.portfolio, this.state.amount)

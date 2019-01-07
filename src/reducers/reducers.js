@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import portfolios from './accountReducer'
 import stocks from './stockReducer'
+import prices from './priceReducers'
 
 /*
   there are some issues with 
@@ -10,7 +11,8 @@ import stocks from './stockReducer'
 
 const portfolioApp = combineReducers({
   portfolios,
-  stocks
+  stocks,
+  prices
 })
 
 export default portfolioApp

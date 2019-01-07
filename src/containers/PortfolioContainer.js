@@ -7,12 +7,14 @@ import {
   addToStock, 
 } from '../actions/stockActions';
 import { deletePortfolio } from '../actions/accountActions'
+import { deletePrice } from '../actions/priceActions'
 import { getStocksInPortfolio } from '../reducers/stockReducer'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     portfolio: ownProps.element.id,
-    portfolioStocks: getStocksInPortfolio(state.stocks, ownProps.element.id)
+    portfolioStocks: getStocksInPortfolio(state.stocks, ownProps.element.id),
+    prices: state.prices
   }
 }
 
@@ -25,8 +27,8 @@ const mapDispatchToProps = (dispatch) => {
       // The id of the stock and amount to add 
       dispatch(addToStock(id, amount))
     },
-    onDelete(stockId) {
-      dispatch(deleteSelected(stockId))
+    onDelete(stockId, ticker) {
+      dispatch(deleteSelected(stockId, ticker))
     },
     onRemove(id) {
       dispatch(deletePortfolio(id))
