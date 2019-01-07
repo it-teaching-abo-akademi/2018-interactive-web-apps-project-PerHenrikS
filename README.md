@@ -5,7 +5,7 @@ Redux.
 
 ### Link to page
 
-[Page](https://www.google.com)
+[Test here!](https://it-teaching-abo-akademi.github.io/2018-interactive-web-apps-project-PerHenrikS/)
 
 ### Technologies used 
 - React.js 
